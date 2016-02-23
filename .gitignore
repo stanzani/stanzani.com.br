@@ -1,0 +1,4 @@
+node_modules
+pub/*
+._*
+.DS_Store
