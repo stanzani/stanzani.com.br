@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
   src: path.join(__dirname, 'src/'),
@@ -26,7 +26,7 @@ module.exports = {
         include: PATHS.src
       },
       {
-        test: /\.js$/,
+        test: /\.(js|tag)$/,
         loader: 'babel-loader',
         include: PATHS.src,
         exclude: /node_modules/,
@@ -50,7 +50,11 @@ module.exports = {
       template: path.join(PATHS.src, 'index.html')
     }),
     // Banner
-    new webpack.BannerPlugin("Daniel Stanzani"),
+    new webpack.BannerPlugin("Learning Riot - Stanzani"),
+    // Copy files like assets to pub
+    new CopyWebpackPlugin([
+      { from: path.join(PATHS.src, 'people.json') }
+    ]),
     // Uglify + Extract CSS + Order
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
