@@ -1,17 +1,17 @@
 import riot from 'riot';
-import './tags/contact-list.tag';
-document.addEventListener('DOMContentLoaded', () => riot.mount('hey-form'));
-document.addEventListener('DOMContentLoaded', () => riot.mount('contact-list', {callback:tagCallback}));
+import * as redux from 'redux';
+import './tags/sample.tag';
 
-function tagCallback(theTag){
-  console.log('callback executed');
-  var request = new XMLHttpRequest();
-  request.open('GET', 'people.json', true);
-  request.onload = ()=> {
-    if(request.status == 200){
-      var data = JSON.parse(request.responseText);
-      theTag.trigger('data_loaded', data.people);
-    }
-  };
-  request.send();
-}
+let reducer = (state={title:'Default title'},action) => {
+  switch (action.type) {
+    case 'CHANGE_TITLE':
+      return Object.assign({},state,{title:action.data})
+    default:
+      return state
+  }
+};
+let reduxStore = redux.createStore(reducer);
+
+document.addEventListener('DOMContentLoaded',
+  () => riot.mount('sample', {store:reduxStore})
+);
