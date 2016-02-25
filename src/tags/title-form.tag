@@ -1,7 +1,7 @@
 <title-form>
   <form onsubmit="{changeTitle}">
     <input type="text" name="newTitle">
-    <input type="button" value="change title" onclick="{changeTitle}">
+    <input type="submit" value="change title">
   </form>
   <script>
     let actions = require('../actions.js')
