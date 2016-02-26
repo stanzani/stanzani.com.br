@@ -53,7 +53,7 @@ module.exports = {
     new webpack.BannerPlugin("Learning Riot - Stanzani"),
     // Copy files like assets to pub
     new CopyWebpackPlugin([
-      { from: path.join(PATHS.src, 'people.json') }
+      { from: path.join(PATHS.src, 'loading.gif') }
     ]),
     // Uglify + Extract CSS + Order
     new webpack.optimize.OccurenceOrderPlugin(),
