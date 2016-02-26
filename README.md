@@ -13,6 +13,6 @@ Now, it's time to learn Riot & Redux
 
 \# npm start
 
-### Builiding public
+### Building public scripts
 
 \# npm run build
