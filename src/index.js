@@ -1,21 +1,26 @@
-/* jshint W033 */
-
 import riot from 'riot';
 import * as redux from 'redux';
-import './tags/sample.tag';
-import './tags/title-form.tag';
+import thunk,{middleware} from 'redux-thunk';
+import './tags/todo-app.tag';
 
 let reducer = (state,action) => {
   switch (action.type) {
-    case 'CHANGE_TITLE':
-      return Object.assign({},state,{title:action.data});
+    case 'TASKS_LOADED':
+      return Object.assign({}, state, {tasks:action.data});
+    case 'TOGGLE_LOADING':
+      return Object.assign({}, state, {isLoading:action.data});
     default:
-      state = {title:'Default title'};
+      state = {tasks:[]};
       return state;
   }
 };
-let reduxStore = redux.createStore(reducer);
+// let reduxStore = redux.createStore(reducer);
+
+let createStoreWhitMiddleware = redux.compose(
+  redux.applyMiddleware(thunk)
+)(redux.createStore);
+let reduxStore = createStoreWhitMiddleware(reducer);
 
 document.addEventListener('DOMContentLoaded',
-  () => riot.mount('*', {store:reduxStore})
+  () => riot.mount('todo-app', {store:reduxStore})
 );
