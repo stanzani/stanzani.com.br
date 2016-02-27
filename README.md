@@ -7,12 +7,12 @@ Now, it's time to learn Riot & Redux
 
 \# npm install -g json-server
 
-### Starting development preview
+### Starting developer preview
 
 \# json-server db.json
 
 \# npm start
 
-### Builiding public
+### Building public scripts
 
 \# npm run build
