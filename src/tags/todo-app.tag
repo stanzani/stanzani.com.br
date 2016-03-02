@@ -1,7 +1,8 @@
 <todo-app>
+  <error-message message={this.state.errorMessage} iserror={this.state.isError} hide={hideErrorMessage}></error-message>
   <loading-indicator loading={this.state.isLoading}></loading-indicator>
   <task-form addtask={this.handleNewTask}></task-form>
-  <task-list tasks={this.state.tasks}></task-list>
+  <task-list tasks={this.state.tasks} handlecheck={handleTaskCompletedChange}></task-list>
   <script>
     let actions = require('../actions.js')
     let store = this.opts.store
@@ -16,6 +17,14 @@
     handleNewTask(task){
       store.dispatch(actions.addTask(task))
     }
+
+    handleTaskCompletedChange(id, isComplete){
+      store.dispatch(actions.toggleComplete(id,isComplete))
+    }
+
+    hideErrorMessage(){
+      store.dispatch(actions.hideError());
+    }
   </script>
 </todo-app>
 
@@ -23,9 +32,15 @@
 <task-list>
   <ul>
     <li each={task in this.opts.tasks}>
-      {task.name}
+      <input type="checkbox" id={task.id} checked={task.isComplete} onchange={handleCheck}>{task.name}
     </li>
   </ul>
+
+  <script>
+    handleCheck(evt){
+      this.opts.handlecheck(evt.target.id, evt.target.checked)
+    }
+  </script>
 </task-list>
 
 
@@ -46,3 +61,14 @@
     }
   </script>
 </task-form>
+
+<error-message>
+  <div show={this.opts.iserror}>
+    {this.opts.message} <a href="#" onclick={hideMessage}>x</a>
+  </div>
+  <script>
+    hideMessage(){
+      this.opts.hide();
+    }
+  </script>
+</error-message>
