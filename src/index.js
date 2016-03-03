@@ -1,7 +1,7 @@
-import riot from 'riot';
-import * as redux from 'redux';
-import thunk,{middleware} from 'redux-thunk';
-import './tags/todo-app.tag';
+import riot from 'riot'
+import * as redux from 'redux'
+import thunk,{middleware} from 'redux-thunk'
+import './tags/todo-app.tag'
 
 let reducer = (state,action) => {
   switch (action.type) {

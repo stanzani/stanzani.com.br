@@ -1,17 +1,26 @@
+import fetch from 'isomorphic-fetch';
+
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(response.statusText);
+  }
+}
+
+function parseJSON(response) {
+  return response.json();
+}
+
 export function loadTasks(){
   return (dispatch, getState) => {
     dispatch(toggleLoading(true));
-    let request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:3000/tasks', true);
-    request.onload = e => {
-      if (request.status >= 200 && request.status < 400 ){
-        var data = JSON.parse(request.responseText);
-        dispatch(tasksLoaded(data));
-      }
-      dispatch(toggleLoading(false));
-    };
-    //setTimeout(()=>request.send(),3000);
-    request.send();
+    fetch('http://localhost:3000/tasks')
+      .then(checkStatus)
+      .then(parseJSON)
+      .then( data => dispatch(tasksLoaded(data)) )
+      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error}`)) );
+    dispatch(toggleLoading(false));
   };
 }
 
@@ -27,17 +36,19 @@ function toggleLoading(isLoading){
 export function addTask(newTask){
   return (dispatch, getState) => {
     dispatch(toggleLoading(true));
-    let request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:3000/tasks', true);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.onload = e => {
-      if (request.status >= 200 && request.status < 400 ){
-        let data = JSON.parse(request.responseText);
-        dispatch(newTaskAdded(data.id, data.name));
-      }
-      dispatch(toggleLoading(false));
-    };
-    request.send(JSON.stringify({name:newTask}));
+    fetch('http://localhost:3000/tasks',
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name:newTask})
+    }).then(checkStatus)
+      .then(parseJSON)
+      .then( data => dispatch(newTaskAdded(data.id, data.name)) )
+      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error}`)) );
+    dispatch(toggleLoading(false));
   };
 }
 
@@ -47,22 +58,22 @@ function newTaskAdded(id, name){
 
 export function toggleComplete(id, isComplete){
   return (dispatch, getState) => {
-    let request = new XMLHttpRequest();
-    request.open('PATCH', `http://localhost:3000/tasks/${id}`, true);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.onload = e => {
-      if (request.status >= 200 && request.status < 400){
-        dispatch(completeChanged(id,isComplete));
-      }else {
+    dispatch(toggleLoading(true));
+    fetch(`http://localhost:3000/tasks/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({isComplete:isComplete})
+    }).then(checkStatus)
+      .then(dispatch(completeChanged(id,isComplete)))
+      .catch( error => {
         dispatch(completeChanged(id,!isComplete));
-        dispatch(tempErrorMessage("API Error"));
-      }
-    };
-    request.onerror = e => {
-      dispatch(completeChanged(id,!isComplete));
-      dispatch(tempErrorMessage("Connection Error"));
-    };
-    request.send(JSON.stringify({isComplete:isComplete}));
+        dispatch(tempErrorMessage(`Bad response from server: ${error}`));
+      });
+    dispatch(toggleLoading(false));
   };
 }
 
