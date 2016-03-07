@@ -32,7 +32,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           cacheDirectory: true,
-          presets: ['es2015']
+          presets: ['es2015', 'stage-0']
         }
       },
       {
@@ -53,7 +53,7 @@ module.exports = {
     new webpack.BannerPlugin("Learning Riot - Stanzani"),
     // Copy files like assets to pub
     new CopyWebpackPlugin([
-      { from: path.join(PATHS.src, 'people.json') }
+      { from: path.join(PATHS.src, 'loading.gif') }
     ]),
     // Hot Module Replacement
     new webpack.HotModuleReplacementPlugin()
