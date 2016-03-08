@@ -62,7 +62,7 @@ module.exports = {
     // Copy files like assets to pub
     new CopyWebpackPlugin([
       { from: path.join(PATHS.src, 'assets/'), to: 'assets/' },
-      { from: 'favicon.ico' },
+      { from: path.join(PATHS.src, 'favicon.ico') },
       { from: 'node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css', to: 'assets/css' },
       { from: 'node_modules/material-design-iconic-font/dist/fonts', to: 'assets/fonts' },
       { from: 'node_modules/material-design-lite/dist/material.min.css', to: 'assets/css' },
