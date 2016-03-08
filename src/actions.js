@@ -31,7 +31,7 @@ function linksLoaded(tasks){
 export function loadCubieStatus(){
   return (dispatch, getState) => {
     dispatch(toggleLoadingCubie(true));
-    fetch('http://cubie.stanzani.com.br:800/ping/')
+    fetch('http://cubie.stanzani.com.br:8800/ping/')
       .then(checkStatus)
       .then(parseJSON)
       .then( pong => {
