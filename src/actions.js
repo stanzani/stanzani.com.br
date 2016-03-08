@@ -30,13 +30,18 @@ function linksLoaded(tasks){
 
 export function loadCubieStatus(){
   return (dispatch, getState) => {
-    dispatch(toggleLoading(true));
-    fetch('http://cubie.stanzani.com.br:8800/ping/')
+    dispatch(toggleLoadingCubie(true));
+    fetch('http://cubie.stanzani.com.br:800/ping/')
       .then(checkStatus)
       .then(parseJSON)
-      .then( pong => dispatch(cubieStatusLoaded(pong)) )
-      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error}`)) );
-    dispatch(toggleLoading(false));
+      .then( pong => {
+        dispatch(toggleLoadingCubie(false))
+        dispatch(cubieStatusLoaded(pong))
+      })
+      .catch( error => {
+        dispatch(cubieStatusLoaded({"pong":"Offline"}));
+        dispatch(toggleLoadingCubie(false))
+      });
   };
 }
 
@@ -46,6 +51,9 @@ function cubieStatusLoaded(pong){
 
 function toggleLoading(isLoading){
   return {type:'TOGGLE_LOADING', data:isLoading};
+}
+function toggleLoadingCubie(isLoadingCubie){
+  return {type:'TOGGLE_LOADING_CUBIE', data:isLoadingCubie};
 }
 
 function showError(message){

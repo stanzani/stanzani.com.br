@@ -9,6 +9,9 @@ let reducer = (state,action) => {
       return Object.assign({}, state, {links:action.data});
     case 'TOGGLE_LOADING':
       return Object.assign({}, state, {isLoading:action.data});
+    case 'TOGGLE_LOADING_CUBIE':
+console.log(action.data);
+      return Object.assign({}, state, {isLoadingCubie:action.data});
     case 'SHOW_ERROR':
       return Object.assign({}, state, {isError:true, errorMessage:action.data});
     case 'HIDE_ERROR':

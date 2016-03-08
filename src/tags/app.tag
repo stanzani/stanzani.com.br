@@ -11,7 +11,7 @@
           <h3>Daniel Stanzani</h3>
           <loading-indicator loading={this.state.isLoading}></loading-indicator>
           <link-list links={this.state.links}></link-list>
-          <cubieboard status={this.state.cubieStatus}></cubieboard>
+          <cubieboard status={this.state.cubieStatus} loading={this.state.isLoadingCubie}></cubieboard>
         </div>
       </div>
     </main>
@@ -50,7 +50,8 @@
 
 <cubieboard>
   <div>
-    <h6><i class="zmdi zmdi-cloud-outline"></i> My Cubieboard Status: {this.opts.status.pong}</h6>
+    <h6><i class="zmdi zmdi-cloud-outline"></i> My Cubieboard Status: {this.opts.status.pong} <span show={this.opts.loading} class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></span>
+</h6>
   </div>
   <script>
   </script>
