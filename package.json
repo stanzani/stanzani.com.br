@@ -1,7 +1,7 @@
 {
-  "name": "learning_riot",
+  "name": "hp_stanzani",
   "version": "1.0.0",
-  "description": "Learning Riot",
+  "description": "Home Page - Stanzanit",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stanzani/learning_riot.git"
+    "url": "git+https://github.com/stanzani/stanzani.com.br.git"
   },
   "author": "Daniel Stanzani",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stanzani/learning_riot/issues"
-  },
-  "homepage": "https://github.com/stanzani/learning_riot#readme",
+  "homepage": "http://www.stanzani.com.br",
   "devDependencies": {
     "babel-core": "^6.6.4",
     "babel-loader": "^6.2.4",
@@ -33,6 +30,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
+    "material-design-iconic-font": "^2.2.0",
+    "material-design-lite": "^1.1.2",
     "redux": "^3.3.1",
     "redux-thunk": "^1.0.3",
     "riot": "^2.3.16"

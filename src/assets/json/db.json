@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "name": "LinkedIn",
+    "url": "https://www.linkedin.com/in/danielstanzani",
+    "icon": "linkedin"
+  },
+  {
+    "id": 1,
+    "name": "Google+",
+    "url": "https://www.google.com.br/+danielstanzani",
+    "icon": "google-plus"
+  },
+  {
+    "id": 2,
+    "name": "GitHub",
+    "url": "https://github.com/stanzani/",
+    "icon": "github"
+  },
+  {
+    "id": 3,
+    "name": "Twitter",
+    "url": "https://twitter.com/danielstanzani/",
+    "icon": "twitter"
+  },
+  {
+    "id": 4,
+    "name": "daniel[at]stanzani.com.br",
+    "url": "mailto:daniel@stanzani.com.br",
+    "icon": "email"
+  }
+]

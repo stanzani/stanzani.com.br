@@ -16,8 +16,9 @@ module.exports = {
   resolve: { extensions: ['', '.js', '.tag'] },
   output: {
     path: PATHS.pub,
-    filename: 'bundle.js'
+    filename: 'assets/js/bundle.js'
   },
+  context: path.join(__dirname),
   module:{
     loaders:[
       {
@@ -47,13 +48,25 @@ module.exports = {
     // Html Index
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(PATHS.src, 'index.html')
+      template: path.join(PATHS.src, 'index.html'),
+      files: {
+         "css": [ "assets/css/main.css",
+                  "assets/css/material.teal-light_green.min.css",
+                  "assets/css/material-design-iconic-font.min.css" ],
+          "js": [ "assets/js/material.min.js" ]
+
+      }
     }),
     // Banner
-    new webpack.BannerPlugin("Learning Riot - Stanzani"),
+    new webpack.BannerPlugin("HP - Stanzani"),
     // Copy files like assets to pub
     new CopyWebpackPlugin([
-      { from: path.join(PATHS.src, 'loading.gif') }
+      { from: path.join(PATHS.src, 'assets/'), to: 'assets/' },
+      { from: 'favicon.ico' },
+      { from: 'node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css', to: 'assets/css' },
+      { from: 'node_modules/material-design-iconic-font/dist/fonts', to: 'assets/fonts' },
+      { from: 'node_modules/material-design-lite/dist/material.min.css', to: 'assets/css' },
+      { from: 'node_modules/material-design-lite/dist/material.min.js', to: 'assets/js' },
     ]),
     // Hot Module Replacement
     new webpack.HotModuleReplacementPlugin()
