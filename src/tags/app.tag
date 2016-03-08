@@ -9,18 +9,22 @@
             About
           </div>
           <h3>Daniel Stanzani</h3>
-          <error-message message={this.state.errorMessage} iserror={this.state.isError} hide={hideErrorMessage}></error-message>
           <loading-indicator loading={this.state.isLoading}></loading-indicator>
           <link-list links={this.state.links}></link-list>
+          <cubieboard status={this.state.cubieStatus}></cubieboard>
         </div>
       </div>
     </main>
   </div>
+  <error-message message={this.state.errorMessage} iserror={this.state.isError} hide={hideErrorMessage}></error-message>
   <script>
     let actions = require('../actions.js')
     let store = this.opts.store
 
-    this.on('mount', () => { store.dispatch(actions.loadLinks()) } )
+    this.on('mount', () => {
+      store.dispatch(actions.loadLinks())
+      store.dispatch(actions.loadCubieStatus())
+    })
 
     store.subscribe( (() => {
         this.state = store.getState()
@@ -33,7 +37,6 @@
   </script>
 </app>
 
-
 <link-list>
   <span each={link in this.opts.links}>
     <a href={link.url} title={link.name} target="_blank" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-hc-3x zmdi-{link.icon}"></i></a>
@@ -45,14 +48,24 @@
   </script>
 </link-list>
 
+<cubieboard>
+  <div>
+    <h6><i class="zmdi zmdi-cloud-outline"></i> My Cubieboard Status: {this.opts.status.pong}</h6>
+  </div>
+  <script>
+  </script>
+</cubieboard>
+
 <loading-indicator>
-  <img src="assets/img/loading.gif" alt="Loading..." show={this.opts.loading}/>
+  <div show={this.opts.loading} class="mdl-spinner mdl-js-spinner is-active"></div>
 </loading-indicator>
 
 <error-message>
-  <div show={this.opts.iserror}>
-    {this.opts.message}
+  <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" show={this.opts.iserror}>
+    <div class="mdl-snackbar__text">{this.opts.message}</div>
+    <button class="mdl-snackbar__action" type="button"></button>
   </div>
+
   <script>
     hideMessage(){
       this.opts.hide();

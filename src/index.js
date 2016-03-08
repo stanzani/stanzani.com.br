@@ -13,8 +13,10 @@ let reducer = (state,action) => {
       return Object.assign({}, state, {isError:true, errorMessage:action.data});
     case 'HIDE_ERROR':
       return Object.assign({}, state, {isError:false, errorMessage:''});
+    case 'CUBIE_STATUS':
+      return Object.assign({}, state, {cubieStatus:action.data});
     default:
-      state = {tasks:[]};
+      state = {links:[]};
       return state;
   }
 };

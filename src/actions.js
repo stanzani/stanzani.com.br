@@ -28,9 +28,24 @@ function linksLoaded(tasks){
   return {type:'LINKS_LOADED', data:tasks};
 }
 
+export function loadCubieStatus(){
+  return (dispatch, getState) => {
+    dispatch(toggleLoading(true));
+    fetch('http://cubie.stanzani.com.br:8800/ping/')
+      .then(checkStatus)
+      .then(parseJSON)
+      .then( pong => dispatch(cubieStatusLoaded(pong)) )
+      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error}`)) );
+    dispatch(toggleLoading(false));
+  };
+}
+
+function cubieStatusLoaded(pong){
+  return {type:'CUBIE_STATUS', data:pong};
+}
+
 function toggleLoading(isLoading){
   return {type:'TOGGLE_LOADING', data:isLoading};
-
 }
 
 function showError(message){
