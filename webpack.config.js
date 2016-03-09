@@ -67,6 +67,20 @@ module.exports = {
       { from: 'node_modules/material-design-iconic-font/dist/fonts', to: 'assets/fonts' },
       { from: 'node_modules/material-design-lite/dist/material.min.css', to: 'assets/css' },
       { from: 'node_modules/material-design-lite/dist/material.min.js', to: 'assets/js' },
+      { from: 'node_modules/material-design-lite/dist/material.min.css.map', to: 'assets/css' },
+      { from: 'node_modules/material-design-lite/dist/material.min.js.map', to: 'assets/js' },
+      { from: 'node_modules/respond.js/dest/respond.min.js', to: 'assets/js' },
+      { from: 'node_modules/html5shiv/html5shiv.min.js', to: 'assets/js' },
+      { from: 'node_modules/html5shiv/html5shiv-printshiv.min.js', to: 'assets/js' },
+      { from: 'node_modules/json3/lib/json3.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-shim.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-shim.map', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-sham.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-sham.map', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-shim.min.js', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-shim.map', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-sham.min.js', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-sham.map', to: 'assets/js' }
     ]),
     // Hot Module Replacement
     new webpack.HotModuleReplacementPlugin()

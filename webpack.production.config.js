@@ -45,6 +45,12 @@ module.exports = {
     ]
   },
   plugins: [
+    // Production
+    new webpack.DefinePlugin({
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     // Html Index
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -56,14 +62,30 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: path.join(PATHS.src, 'assets/'), to: 'assets/' },
       { from: path.join(PATHS.src, 'favicon.ico') },
+      { from: path.join(PATHS.src, 'robots.txt') },
+      { from: path.join(PATHS.src, 'errors/') },
       { from: 'node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css', to: 'assets/css' },
       { from: 'node_modules/material-design-iconic-font/dist/fonts', to: 'assets/fonts' },
       { from: 'node_modules/material-design-lite/dist/material.min.css', to: 'assets/css' },
       { from: 'node_modules/material-design-lite/dist/material.min.js', to: 'assets/js' },
+      { from: 'node_modules/material-design-lite/dist/material.min.css.map', to: 'assets/css' },
+      { from: 'node_modules/material-design-lite/dist/material.min.js.map', to: 'assets/js' },
+      { from: 'node_modules/respond.js/dest/respond.min.js', to: 'assets/js' },
+      { from: 'node_modules/html5shiv/html5shiv.min.js', to: 'assets/js' },
+      { from: 'node_modules/html5shiv/html5shiv-printshiv.min.js', to: 'assets/js' },
+      { from: 'node_modules/json3/lib/json3.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-shim.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-shim.map', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-sham.min.js', to: 'assets/js' },
+      { from: 'node_modules/es5-shim/es5-sham.map', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-shim.min.js', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-shim.map', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-sham.min.js', to: 'assets/js' },
+      { from: 'node_modules/es6-shim/es6-sham.map', to: 'assets/js' }
     ]),
     // Uglify + Extract CSS + Order
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     new ExtractTextPlugin("style.css"),
     //new ExtractTextPlugin("[name]-[hash].css")
   ]
