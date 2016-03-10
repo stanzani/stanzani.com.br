@@ -29,10 +29,10 @@
     store.subscribe( (() => {
         this.state = store.getState()
         this.update()
-    }).bind())
+    }).bind());
 
-    hideErrorMessage(){
-      store.dispatch(actions.hideError());
+    let hideErrorMessage = () => {
+      store.dispatch(actions.hideError())
     }
   </script>
 </app>
@@ -42,7 +42,7 @@
     <a href={link.url} title={link.name} target="_blank" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-hc-3x zmdi-{link.icon}"></i></a>
   </span>
   <script>
-    handleCheck(evt){
+    let handleCheck = (evt) => {
       this.opts.handlecheck(evt.target.id, evt.target.checked)
     }
   </script>
@@ -68,7 +68,7 @@
   </div>
 
   <script>
-    hideMessage(){
+    let hideMessage = () => {
       this.opts.hide();
     }
   </script>

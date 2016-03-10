@@ -1,4 +1,5 @@
-import fetch from 'isomorphic-fetch';
+import 'whatwg-fetch';
+import 'es6-promise';
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
