@@ -62,11 +62,7 @@ module.exports = {
       { from: 'node_modules/material-design-lite/dist/material.min.css', to: 'assets/css' },
       { from: 'node_modules/material-design-lite/dist/material.min.js', to: 'assets/js' },
       { from: 'node_modules/material-design-lite/dist/material.min.css.map', to: 'assets/css' },
-      { from: 'node_modules/material-design-lite/dist/material.min.js.map', to: 'assets/js' },
-      { from: 'node_modules/respond.js/dest/respond.min.js', to: 'assets/js' },
-      { from: 'node_modules/html5shiv/html5shiv.min.js', to: 'assets/js' },
-      { from: 'node_modules/html5shiv/html5shiv-printshiv.min.js', to: 'assets/js' },
-      { from: 'node_modules/json3/lib/json3.min.js', to: 'assets/js' }
+      { from: 'node_modules/material-design-lite/dist/material.min.js.map', to: 'assets/js' }
     ]),
     // Hot Module Replacement
     new webpack.HotModuleReplacementPlugin()

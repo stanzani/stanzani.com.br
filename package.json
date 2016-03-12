@@ -15,9 +15,9 @@
   "license": "MIT",
   "homepage": "http://www.stanzani.com.br",
   "devDependencies": {
-    "babel-core": "^6.7.0",
+    "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
-    "babel-plugin-check-es2015-constants": "^6.6.5",
+    "babel-plugin-check-es2015-constants": "^6.7.2",
     "babel-plugin-transform-async-to-generator": "^6.7.0",
     "babel-plugin-transform-class-properties": "^6.6.0",
     "babel-plugin-transform-decorators": "^6.6.5",
@@ -52,7 +52,7 @@
     "css-loader": "^0.23.1",
     "es6-promise": "^3.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
-    "html-webpack-plugin": "^2.9.0",
+    "html-webpack-plugin": "^2.10.0",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "riot": "^2.3.16",
@@ -63,11 +63,8 @@
     "whatwg-fetch": "^0.11.0"
   },
   "dependencies": {
-    "html5shiv": "^3.7.3",
-    "json3": "^3.3.2",
     "material-design-iconic-font": "^2.2.0",
-    "material-design-lite": "^1.1.2",
-    "respond.js": "^1.4.2"
+    "material-design-lite": "^1.1.2"
   },
   "jshintConfig": {
     "esnext": true,
