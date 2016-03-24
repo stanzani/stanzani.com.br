@@ -2,6 +2,10 @@ import riot from 'riot'
 import * as redux from 'redux'
 import thunk,{middleware} from 'redux-thunk'
 import './tags/app.tag'
+import './assets/css/main.scss';
+import 'material-design-lite/material'
+import 'material-design-lite/material.min.css';
+import 'material-design-iconic-font/dist/css/material-design-iconic-font.min.css';
 
 let reducer = (state,action) => {
   switch (action.type) {
