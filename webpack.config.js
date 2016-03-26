@@ -120,11 +120,6 @@ module.exports = {
         include: PATHS.src,
         exclude: /node_modules/,
         loader: 'babel-loader'
-      },
-      {
-        test:   /\.html/,
-        loader: 'html',
-        include: PATHS.src
       }
     ]
   },
