@@ -19,19 +19,18 @@ var plugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin(
     /* chunkName= */ "vendor",
-    /* filename= */  "assets/js/vendor.bundle.js"
+    /* filename= */  "assets/js/vendor.js"
   ),
   // Html Index
   new HtmlWebpackPlugin({
     filename: 'index.html',
     template: 'src/index.html'
   }),
-  new ExtractTextPlugin("assets/css/[name]-[hash].css",
+  new ExtractTextPlugin("assets/css/[name].css",
   {
-			disable: false,
-			allChunks: true
-	})
-]
+    allChunks: true
+  })
+];
 
 if (production) {
   plugins = plugins.concat([
@@ -52,11 +51,10 @@ if (production) {
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets/json', to: 'assets/json' },
-      { from: 'src/assets/img/app-icons', to: 'assets/img/app-icons' },
+      { from: 'src/assets/img/app_icons', to: 'assets/img/app_icons' },
       { from: 'src/favicon.ico' },
       { from: 'src/robots.txt' },
-      { from: 'src/errors/' },
-      { from: 'node_modules/material-design-iconic-font/dist/fonts', to: 'assets/fonts' }
+      { from: 'src/errors/' }
     ]),
     new webpack.BannerPlugin("stanzani.com.br")
   ]);
@@ -68,14 +66,17 @@ module.exports = {
   cache:   true,
   entry:   {
     app:    PATHS.src,
-    vendor: ['riot','redux','redux-thunk', 'whatwg-fetch', 'es6-promise', 'material-design-lite/material']
+    vendor: [
+      'riot','redux','redux-thunk', 'whatwg-fetch', 'es6-promise', 'material-design-lite/material',
+      'material-design-lite/material.min.css',
+      'material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
+    ]
   },
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
   output: {
     path: PATHS.pub,
-    filename: production ? 'assets/js/[name]-[hash].js' : 'assets/js/bundle.js',
-    chunkFilename: 'assets/js/[name]-[chunkhash].js',
-    publicPath: ""
+    filename: 'assets/js/[name].js',
+    chunkFilename: 'assets/js/[name].js',
   },
   context: path.join(__dirname, '/'),
   module:{
@@ -98,13 +99,21 @@ module.exports = {
         include: PATHS.src
       },
       {
-        test: /\.(scss|sass|css)$/,
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url?limit=10000&minetype=application/font-woff&name=/assets/fonts/[name].[ext]"
+      },
+      {
+        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file?name=/assets/fonts/[name].[ext]"
+      },
+      {
+        test: /\.(scss|sass)$/,
         loader: ExtractTextPlugin.extract('style', 'css', 'sass'),
         include: PATHS.src
       },
       {
         test: /\.(css)$/,
-        loader: 'file?name=assets/css/[name].[ext]'
+        loader: ExtractTextPlugin.extract('style', 'css'),
       },
       {
         test: /\.(js|tag)$/,
