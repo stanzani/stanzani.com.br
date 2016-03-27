@@ -1,7 +1,7 @@
 {
   "name": "hp_stanzani",
   "version": "1.0.0",
-  "description": "Home Page - Stanzanit",
+  "description": "Home Page - Stanzani",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --hot --inline --module-bind",
@@ -15,6 +15,7 @@
   "license": "MIT",
   "homepage": "http://www.stanzani.com.br",
   "devDependencies": {
+    "animate.css": "^3.5.1",
     "autoprefixer": "^6.3.4",
     "babel-core": "^6.7.4",
     "babel-loader": "^6.2.4",

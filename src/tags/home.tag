@@ -1,5 +1,5 @@
-<app>
-  <div class="base-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+<home>
+  <div class="base-layout mdl-layout mdl-layout--fixed-header mdl-js-layout">
     <div class="base-ribbon"></div>
     <main class="base-main mdl-layout__content">
       <div class="base-container mdl-grid">
@@ -35,11 +35,11 @@
       store.dispatch(actions.hideError())
     }
   </script>
-</app>
+</home>
 
 <link-list>
   <span each={link in this.opts.links}>
-    <a href={link.url} title={link.name} target="_blank" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-hc-3x zmdi-{link.icon}"></i></a>
+    <a href={link.url} title={link.name} target="{(link.hasOwnProperty('target'))?link.target:'_blank'}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-hc-3x zmdi-{link.icon} animated zoomIn"></i></a>
   </span>
   <script>
     let handleCheck = (evt) => {

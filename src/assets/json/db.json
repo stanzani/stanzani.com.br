@@ -1,30 +1,37 @@
 [
   {
     "id": 0,
+    "name": "Blog",
+    "url": "#blog",
+    "icon": "home",
+    "target": "_self"
+  },
+  {
+    "id": 1,
     "name": "LinkedIn",
     "url": "https://www.linkedin.com/in/danielstanzani",
     "icon": "linkedin"
   },
   {
-    "id": 1,
+    "id": 2,
     "name": "Google+",
     "url": "https://www.google.com.br/+danielstanzani",
     "icon": "google-plus"
   },
   {
-    "id": 2,
+    "id": 3,
     "name": "GitHub",
     "url": "https://github.com/stanzani/",
     "icon": "github"
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "Twitter",
     "url": "https://twitter.com/danielstanzani/",
     "icon": "twitter"
   },
   {
-    "id": 4,
+    "id": 5,
     "name": "daniel[at]stanzani.com.br",
     "url": "mailto:daniel@stanzani.com.br",
     "icon": "email"

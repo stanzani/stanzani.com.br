@@ -1,7 +1,7 @@
 import riot from 'riot';
 import * as redux from 'redux';
 import thunk,{middleware} from 'redux-thunk';
-import './tags/app.tag';
+import './tags/home.tag';
 import './assets/css/main.scss';
 
 let reducer = (state,action) => {
@@ -25,11 +25,38 @@ let reducer = (state,action) => {
 };
 // let reduxStore = redux.createStore(reducer);
 
-let createStoreWhitMiddleware = redux.compose(
+const appMiddleware = redux.compose(
   redux.applyMiddleware(thunk)
 )(redux.createStore);
-let reduxStore = createStoreWhitMiddleware(reducer);
+const reduxStore = appMiddleware(reducer);
 
-document.addEventListener('DOMContentLoaded',
-  () => riot.mount('app', {store:reduxStore})
-);
+// document.addEventListener('DOMContentLoaded',
+//   () => riot.mount('app', {store:reduxStore})
+// );
+
+const routes = path => {
+  let page = null;
+  if (page) {
+     page.unmount(true);
+   }
+
+  switch (path) {
+    case '':
+      page = riot.mount('app', 'home', {store:reduxStore});
+      break;
+    case 'blog':
+
+    require.ensure(['./tags/blog.tag'], (require) => {
+      require('./tags/blog.tag');
+      page = riot.mount('app', 'blog');
+    }, 'blog');
+      break;
+    default:
+      page = riot.mount(path);
+  }
+};
+
+riot.route.stop(); // clear all the old router callbacks
+riot.route.start(); // start again
+riot.route(routes);
+riot.route.exec(routes);
