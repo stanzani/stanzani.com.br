@@ -21,6 +21,11 @@ var plugins = [
     /* chunkName= */ "vendor",
     /* filename= */  "assets/js/vendor.js"
   ),
+  new webpack.optimize.CommonsChunkPlugin({
+    name:   'app',
+    children:  true,
+    minChunks: 2,
+  }),
   // Html Index
   new HtmlWebpackPlugin({
     filename: 'index.html',
@@ -69,7 +74,8 @@ module.exports = {
     vendor: [
       'riot','redux','redux-thunk', 'whatwg-fetch', 'es6-promise', 'material-design-lite/material',
       'material-design-lite/material.min.css',
-      'material-design-iconic-font/dist/css/material-design-iconic-font.min.css'
+      'material-design-iconic-font/dist/css/material-design-iconic-font.min.css',
+      'animate.css/animate.min.css'
     ]
   },
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
