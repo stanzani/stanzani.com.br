@@ -34,7 +34,10 @@ var plugins = [
   new ExtractTextPlugin("assets/css/[name].css",
   {
     allChunks: true
-  })
+  }),
+  new CopyWebpackPlugin([
+    { from: 'src/assets/json', to: 'assets/json' }
+  ]),
 ];
 
 if (production) {
@@ -47,12 +50,11 @@ if (production) {
     }),
     new webpack.optimize.UglifyJsPlugin({ mangle: true, compress: { warnings: false } }),
     new webpack.DefinePlugin({
-      __SERVER__:      !production,
-      __DEVELOPMENT__: !production,
-      __DEVTOOLS__:    !production,
-      'process.env':   {
-          BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+      'process.env.NODE_ENV':  JSON.stringify('production'),
+      'process.env.BABEL_ENV': JSON.stringify('production'),
+      __SERVER__:      false,
+      __DEVELOPMENT__: false,
+      __DEVTOOLS__:    false
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets/json', to: 'assets/json' },

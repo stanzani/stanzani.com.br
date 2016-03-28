@@ -45,7 +45,6 @@ const routes = path => {
       page = riot.mount('app', 'home', {store:reduxStore});
       break;
     case 'blog':
-
     require.ensure(['./tags/blog.tag'], (require) => {
       require('./tags/blog.tag');
       page = riot.mount('app', 'blog');
