@@ -139,7 +139,7 @@ module.exports = {
   },
   devtool: production ? false : 'eval-source-map',
   devServer: {
-    contentBase: PATHS.pub,
+    outputPath: PATHS.pub,
     colors: true,
     historyApiFallback: true,
     inline: true,
