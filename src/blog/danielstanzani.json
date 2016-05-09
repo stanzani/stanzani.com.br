@@ -1,0 +1,24 @@
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "Daniel Stanzani",
+  "email": "mailto:daniel@stanzani.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "São Paulo",
+    "addressRegion": "SP"
+  },
+  "image": "http://www.stanzani.com.br/blog/img/profile.jpg",
+  "jobTitle": "Consultor de Sistemas",
+  "birthPlace": "São Paulo, SP",
+  "birthDate": "1987.04.11",
+  "gender": "male",
+  "nationality": "Brazilian Portuguese",
+  "url": "http://www.stanzani.com.br",
+  "sameAs": [
+    "https://www.linkedin.com/in/danielstanzani",
+    "https://twitter.com/danielstanzani/",
+    "https://github.com/stanzani/",
+    "https://www.google.com.br/+danielstanzani"
+  ]
+}

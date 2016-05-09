@@ -18,7 +18,7 @@
   </div>
   <error-message message={this.state.errorMessage} iserror={this.state.isError} hide={hideErrorMessage}></error-message>
   <script>
-    let actions = require('../actions.js')
+    let actions = require('../actions/home.js')
     let store = this.opts.store
 
     this.on('mount', () => {

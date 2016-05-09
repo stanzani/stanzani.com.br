@@ -20,7 +20,7 @@ export function loadLinks(){
       .then(checkStatus)
       .then(parseJSON)
       .then( data => dispatch(linksLoaded(data)) )
-      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error}`)) );
+      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error.message}`)) );
     dispatch(toggleLoading(false));
   };
 }

@@ -1,0 +1,33 @@
+{
+  "@context": "http://schema.org",
+  "@type": "Blog",
+  "about": "About yout blog. -- This is the first list os posts, starts the blog",
+  "blogPosts": [
+    {
+      "headline": "3th post Bla bla bla!",
+      "@id": "third-post",
+      "url": "http://www.stanzani.com.br/#blog/post/third-post",
+      "datePublished": "2016-03-28T17:00:00-03:00",
+      "description": "More descriptions... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": {
+        "@type": "ImageObject",
+        "url": "http://www.stanzani.com.br/blog/img/third-post.jpg"
+      }
+    },
+    {
+      "headline": "Oldest post...",
+      "@id": "old-post",
+      "url": "http://www.stanzani.com.br/#blog/post/old-post",
+      "datePublished": "2016-03-2T19:27:00-03:00",
+      "description": "Old post description... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": {
+        "@type": "ImageObject",
+        "url": "http://www.stanzani.com.br/blog/img/old-post.jpg"
+      }
+    }
+  ],
+  "mainEntityOfPage": {
+     "@type": "WebPage",
+     "@id": "http://www.stanzani.com.br"
+  }
+}

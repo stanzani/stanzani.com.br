@@ -33,11 +33,12 @@ var plugins = [
   }),
   new ExtractTextPlugin("assets/css/[name].css",
   {
-    allChunks: true
+    allChunks: false
   }),
   new CopyWebpackPlugin([
-    { from: 'src/assets/json', to: 'assets/json' }
-  ]),
+    { from: 'src/assets/json', to: 'assets/json' },
+    { from: 'src/blog', to: 'blog' }
+  ])
 ];
 
 if (production) {
@@ -45,9 +46,9 @@ if (production) {
     new CleanPlugin( PATHS.pub ),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.MinChunkSizePlugin({
-              minChunkSize: 51200, // ~50kb
-    }),
+    //new webpack.optimize.MinChunkSizePlugin({
+    //          minChunkSize: 51200, // ~50kb
+    //}), Commented - Error using require.ensure
     new webpack.optimize.UglifyJsPlugin({ mangle: true, compress: { warnings: false } }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV':  JSON.stringify('production'),
@@ -61,7 +62,8 @@ if (production) {
       { from: 'src/assets/img/app_icons', to: 'assets/img/app_icons' },
       { from: 'src/favicon.ico' },
       { from: 'src/robots.txt' },
-      { from: 'src/errors/' }
+      { from: 'src/errors/' },
+      { from: 'src/blog', to: 'blog' }
     ]),
     new webpack.BannerPlugin("stanzani.com.br")
   ]);
@@ -74,7 +76,7 @@ module.exports = {
   entry:   {
     app:    PATHS.src,
     vendor: [
-      'riot','redux','redux-thunk', 'whatwg-fetch', 'es6-promise', 'material-design-lite/material',
+      'riot', 'redux', 'redux-thunk', 'whatwg-fetch', 'es6-promise', 'material-design-lite/material',
       'material-design-lite/material.min.css',
       'material-design-iconic-font/dist/css/material-design-iconic-font.min.css',
       'animate.css/animate.min.css'
