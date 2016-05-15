@@ -1,0 +1,80 @@
+/* IE9 Hacks*/
+
+html {
+ overflow: hidden;
+}
+
+.blog .profile .mdl-card__supporting-text {
+  line-height: 60px;
+}
+
+profile {
+  display: block;
+  float: left;
+}
+
+.blog .mdl-card__media {
+  min-height: 55vh;
+}
+
+.mdl-card .mdl-card__supporting-text .post_date {
+  margin-top: 10px;
+}
+
+.blog .minilogo {
+  margin-top: 5px;
+}
+
+.post_date strong {
+  display: block;
+  clear: right;
+}
+
+.blog .minilogo {
+  float: left;
+}
+
+.post__desc{
+  max-width: 100%;
+  margin-bottom: 15px;
+
+}
+
+.post__desc_first{
+  float: left;
+  clear: right;
+  margin-bottom: 15px;
+}
+
+.dateText{
+  float: left;
+    margin-top: 8px;
+}
+.dateText strong{
+  display: block;
+  clear: right;
+}
+.authorDesc .meta__post{
+  display: inline-block;
+  position: relative;
+}
+
+.authorDesc{
+  text-align: right !important;
+}
+
+main{
+  width: 100%;
+}
+posts-list{
+  display: block;
+    margin: 0 auto !important;
+}
+
+.blog .mdl-card h3 {
+  margin-top: 5.5em;
+}
+
+.nav_more {
+  padding-bottom: 200px;
+}
