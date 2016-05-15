@@ -7,6 +7,11 @@ const appMiddleware = redux.compose(
   redux.applyMiddleware(thunk)
 )(redux.createStore);
 
+if(typeof ga != 'function'){
+   window.ga = function(a,b,c){
+     console.log("Implement Google analytics function inside index.html");
+   };
+}
 
 const routes = (path, second, third) => {
   let page = null;
@@ -18,11 +23,14 @@ const routes = (path, second, third) => {
     case 'blog':
       var paginate = 0;
       var post = null;
+      ga('set', 'page', '/#'+path);
       if(second=='post'&& third){
         path = 'post';
         post = third;
+        ga('set', 'page', '/#'+path+'/post/'+post);
       }else if(parseInt(second)>0){
         paginate = parseInt(second);
+        ga('set', 'page', '/#'+path+'/'+paginate);
       }
       require.ensure(['./tags/blog.tag'], (require) => {
         let reducer = require('./reducers/blog.js');
@@ -39,6 +47,7 @@ const routes = (path, second, third) => {
         require('./tags/home.tag');
         page = riot.mount('app', 'home', {store:reduxStore});
       }, 'home');
+      ga('set', 'page', '/#');
   }
 };
 
@@ -46,33 +55,4 @@ riot.route.stop(); // clear all the old router callbacks
 riot.route.start(); // start again
 riot.route(routes);
 riot.route.exec(routes);
-
-function isInt(value) {
-  var x;
-  if (isNaN(value)) {
-    return false;
-  }
-  x = parseFloat(value);
-  return (x | 0) === x;
-}
-
-// function getPath(pathName, cb) {
-//     require.ensure([], require => cb(require(`./tags/${pathName}.tag`).default));
-// }
-
-//     require.ensure([], function(require) {
-//       require('./tags/home.tag');
-//         // ...
-//     }, "home");
-//     break;
-//   case 'blog':
-//       // console.log(path);
-//       // let reducer = require(`./reducers/${path}.js`);
-//       // let reduxStore = appMiddleware(reducer);
-//       // page = riot.mount('app', 'home', {store:reduxStore});
-//
-//     break;
-//   default:
-//     page = riot.mount(path);
-//   }
-// };
+ga('send', 'pageview');

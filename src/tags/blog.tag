@@ -46,7 +46,7 @@ import * as actions from '../actions/blog.js';
 
 <posts-list>
   <profile data={this.opts.profile} loading="{this.opts.profloading}" class="mdl-card profile mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop"></profile>
-  <div class="mdl-card mdl-cell mdl-cell--8-col">
+  <div class="mdl-card mdl-cell mdl-cell--8-col post__desc_first">
     <div onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{setURL(this.opts.posts[0]['image']['url'])}')">
       <h3><a href="{setURL(this.opts.posts[0]['url'])}">{this.opts.posts[0]['headline']}</a></h3>
     </div>
@@ -54,15 +54,15 @@ import * as actions from '../actions/blog.js';
       <div class="minilogo">
         <i class="zmdi zmdi-fire zmdi-hc-2x animated infinite pulse mdl-color-text--red-600"></i>
       </div>
-      <div>
+      <div class="post_date">
         <strong>Mais recente</strong>
-        <loading-indicator loading={this.opts.loading}></loading-indicator>
         <span>{daysBefore(this.opts.posts[0]['datePublished']).dateText}</span>
+        <loading-indicator loading={this.opts.loading}></loading-indicator>
       </div>
     </div>
   </div>
 
-  <div each={ post, i in this.opts.posts } if='{i>0}' class="mdl-card mdl-cell mdl-cell--12-col">
+  <div each={ post, i in this.opts.posts } if='{i>0}' class="mdl-card mdl-cell mdl-cell--12-col post__desc">
     <div onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{setURL(post['image']['url'])}')">
       <h3><a href="{setURL(post['url'])}">{post['headline']}</a></h3>
     </div>
@@ -71,16 +71,16 @@ import * as actions from '../actions/blog.js';
     </div>
     <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
       <div class="minilogo"><i class="zmdi zmdi-calendar-alt zmdi-hc-2x mdl-color-text--blue-600"></i></div>
-      <div>
+      <div class="post_date">
         <strong>Postado em</strong>
         <span>{daysBefore(post['datePublished']).dateText}</span>
       </div>
     </div>
   </div>
 
-  <nav class="nav mdl-cell mdl-cell--12-col" show={this.opts.showmore}>
+  <nav class="nav nav_more mdl-cell mdl-cell--12-col">
     <div class="section-spacer"></div>
-    <a href="#blog" class="nav__button" title="exibir mais">
+    <a href="#blog" class="nav__button" title="exibir mais" show={this.opts.showmore}>
       Mais
       <button onclick={ this.opts.more } class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
         <i class="zmdi zmdi-long-arrow-down"></i>
@@ -89,11 +89,10 @@ import * as actions from '../actions/blog.js';
   </nav>
   <script>
   this.goToURL = (e) => {
-    if(e.toElement.firstElementChild!=null)
-      location.href = e.toElement.firstElementChild.firstElementChild.hash
-    else {
-      location.href = e.srcElement.hash
-    }
+    if(e.target.firstElementChild!=null)
+      location.href = e.target.firstElementChild.firstElementChild.hash
+    else
+      location.href = e.target.hash
   }
   this.daysBefore = (date) => actions.daysBefore(date)
   this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)

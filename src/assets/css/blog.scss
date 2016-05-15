@@ -24,13 +24,12 @@ body .blog {
   padding: 0;
   display: flex;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 220px auto;
   flex-shrink: 0;
 }
 
 .blog.mdl-layout .mdl-layout__content {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding-top: 100px;
   position: relative;
   -webkit-overflow-scrolling: touch;
 }
@@ -55,6 +54,7 @@ body .blog {
   cursor: pointer;
   background-color: #333 !important;
 }
+
 .blog .mdl-card__media a,
 .blog .mdl-card__title a {
   color: inherit;
@@ -164,11 +164,7 @@ body .blog {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
 }
-.blog .profile .mdl-card__media img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 10px;
-}
+
 .blog .profile .mdl-card__supporting-text {
   background-color: #F5F5F5;
   border-bottom-left-radius: 2px;
@@ -200,6 +196,7 @@ body .blog {
 .blog .mdl-card h3.quote:after {
   content: '”';
 }
+
 .blog--blogpost .custom-header {
   background-color: transparent;
 }

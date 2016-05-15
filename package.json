@@ -4,7 +4,7 @@
   "description": "Home Page - Stanzani",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --hot --inline --module-bind",
+    "start": "webpack-dev-server --progress --hot --inline --module-bind --host 0.0.0.0",
     "build": "(NODE_ENV=production webpack --config -p --progress --colors)"
   },
   "repository": {

@@ -29,7 +29,8 @@ var plugins = [
   // Html Index
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: 'src/index.html'
+    template: 'src/index.html',
+    excludeChunks: ['ie9']
   }),
   new ExtractTextPlugin("assets/css/[name].css",
   {
@@ -80,7 +81,8 @@ module.exports = {
       'material-design-lite/material.min.css',
       'material-design-iconic-font/dist/css/material-design-iconic-font.min.css',
       'animate.css/animate.min.css'
-    ]
+    ],
+    ie9: path.join(PATHS.src, 'assets/css/ie9.scss')  /*ie9 hack css -_- */
   },
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
   output: {
