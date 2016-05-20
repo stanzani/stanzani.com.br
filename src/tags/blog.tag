@@ -1,5 +1,21 @@
 import '../assets/css/blog.scss';
 import * as actions from '../actions/blog.js';
+import * as showdown from 'showdown';
+
+<raw>
+  <script>
+    this.updateContent = function () {
+        this.root.innerHTML = opts.content;
+    };
+
+    this.on('update', function() {
+        this.updateContent();
+    });
+
+    this.updateContent();
+  </script>
+</raw>
+
 <blog>
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,500' rel='stylesheet' type='text/css'>
   <div class="blog mdl-layout mdl-js-layout has-drawer is-upgraded">
@@ -185,9 +201,7 @@ import * as actions from '../actions/blog.js';
             </div>
           </div>
           <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
-            <p each={ post, i in textLines(this.state.post.articleBody) }>
-              {post}
-            </p>
+              <raw content="{converter.makeHtml(this.state.post.articleBody)}"></raw>
           </div>
           <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta authorDesc">
             <div class="section-spacer"></div>
@@ -289,7 +303,7 @@ import * as actions from '../actions/blog.js';
 
     this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
     this.setHashTag = (str) => str.split(" ").map( (v) => ` #${v}` ).join(" ")
-    this.textLines = (str) => str.split('\n')
-
+    //this.textLines = (str) => str.split('\n')
+    this.converter = new showdown.Converter();
   </script>
 </post>

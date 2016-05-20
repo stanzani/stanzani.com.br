@@ -220,6 +220,15 @@ body .blog {
   font-size: 16px;
   line-height: 28px;
 }
+.blog--blogpost .meta + .mdl-card__supporting-text ul li{
+  padding-bottom: 10px;
+}
+.blog--blogpost .meta + .mdl-card__supporting-text ul {
+  max-width: 482px;
+  font-size: 16px;
+  line-height: 24px;
+  padding-left: 30px;
+}
 
 .blog--blogpost .comments {
   display: flex;

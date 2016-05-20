@@ -28,7 +28,7 @@ export function daysBefore (date) {
     val += " dia" + ((val==1)?"":"s") + " atrás";
     recent = true;
   }else if(val == 7){
-    val = "Há uma semana";
+    val = "Uma semana atrás";
   }else{
     let month = {1:"janeiro", 2:"fevereiro", 3:"março", 4:"abril", 5:"maio", 6:"junho", 7:"julho", 8:"agosto", 9:"setembro", 10:"outubro", 11:"novembro", 12:"dezembro"};
     val = d[2] + " de " + month[d[1]] + " de " + d[0];
@@ -67,7 +67,19 @@ function updateBlogURL(pg, error){
 }
 
 function fetchPosts (d, page, end, fn){
-  fetch('blog/blog'+page+'.json')
+  let headers = new Headers();
+  let date = new Date();
+  let age = 12*60*60; // One day
+  date.setTime(date.getTime()+(age*1000)); // One day
+  headers.append('Expires', date.toGMTString());
+  headers.append('Pragma', 'cache');
+  headers.append('Cache-Control', 'max-age='&age);
+  headers.append('User-Cache-Control', 'max-age='&age);
+  let init = {
+    method: 'GET',
+    headers: headers,
+  };
+  fetch('blog/blog'+page+'.json', init)
     .then(checkStatus)
     .then(parseJSON)
     .then( data => {
