@@ -34,7 +34,7 @@ var plugins = [
   }),
   new ExtractTextPlugin("assets/css/[name].css",
   {
-    allChunks: false
+    allChunks: true
   }),
   new CopyWebpackPlugin([
     { from: 'src/assets/json', to: 'assets/json' },

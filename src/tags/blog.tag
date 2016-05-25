@@ -123,6 +123,9 @@ import * as showdown from 'showdown';
   <div show={this.opts.loading} class="mdl-spinner mdl-js-spinner is-active"></div>
 </profile-loading-indicator>
 
+<post-loading-indicator>
+  <div show={this.opts.loading} class="mdl-spinner mdl-js-spinner is-active"></div>
+</post-loading-indicator>
 
 <profile>
     <div onclick={goHome} class="mdl-card__media mdl-color--white mdl-color-text--grey-600" style="background-image: url({setURL(this.opts.data['image'])})">
@@ -170,7 +173,8 @@ import * as showdown from 'showdown';
        </a>
      </div>
       <div class="blog__posts mdl-grid">
-        <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+        <post-loading-indicator loading={this.state.isLoading}></post-loading-indicator>
+        <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" show={!this.state.isLoading}>
           <div class="mdl-card__media mdl-color-text--grey-50 cursor-default" style="background-image: url('{setURL(this.state.post.image.url)}')">
             <h3>{this.state.post.headline}</h3>
           </div>
@@ -190,7 +194,6 @@ import * as showdown from 'showdown';
               425 <i class="zmdi zmdi-hc-2x zmdi-favorite zmdi-hc-fw" role="presentation"></i>
               <span class="visuallyhidden">favorites</span>
             </div>
-            <loading-indicator loading={this.state.isLoading}></loading-indicator>
             <div show={0}>
               <i class="zmdi zmdi-hc-2x zmdi-bookmark zmdi-hc-fw" role="presentation"></i>
               <span class="visuallyhidden">bookmark</span>

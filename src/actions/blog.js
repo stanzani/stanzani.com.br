@@ -44,17 +44,19 @@ export function loadPosts(page,end){
       if(page===0){
         dispatch(postsLoaded(v.posts));
         dispatch(updatePage(v.page));
+        dispatch(toggleLoading(false))
       }else {
         dispatch(postsMoreLoaded(v.posts));
       }
       if(v.error === '404' && v.page > 0){
         dispatch(endOfPosts());
+        dispatch(toggleLoading(false))
       }else if(v.error !== undefined ){
         dispatch(tempErrorMessage(`Bad response from server: ${v.error}`));
+        dispatch(toggleLoading(false))
       }
       updateBlogURL(v.page, v.error);
     });
-    dispatch(toggleLoading(false));
   };
 }
 
@@ -98,9 +100,14 @@ export function loadProfile(){
     fetch('blog/danielstanzani.json')
       .then(checkStatus)
       .then(parseJSON)
-      .then( data => dispatch(profileLoaded(data)) )
-      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error.message}`)) );
-    dispatch(toggleProfileLoading(false));
+      .then( data => {
+        dispatch(profileLoaded(data));
+        dispatch(toggleProfileLoading(false));
+      })
+      .catch( error => {
+        dispatch(tempErrorMessage(`Bad response from server: ${error.message}`));
+        dispatch(toggleProfileLoading(false))
+      ;} );
   };
 }
 
@@ -110,9 +117,14 @@ export function loadPost(id){
     fetch(`blog/posts/${id}.json`)
       .then(checkStatus)
       .then(parseJSON)
-      .then( data => dispatch(postLoaded(data)) )
-      .catch( error => dispatch(errorPostPage(`Bad response from server: ${error.message}`)) );
-    dispatch(toggleLoading(false));
+      .then( data => {
+        dispatch(postLoaded(data));
+        dispatch(toggleLoading(false));
+      })
+      .catch( error => {
+        dispatch(errorPostPage(`Bad response from server: ${error.message}`));
+        dispatch(toggleLoading(false));
+      });
   };
 }
 

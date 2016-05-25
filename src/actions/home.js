@@ -19,9 +19,15 @@ export function loadLinks(){
     fetch('assets/json/db.json')
       .then(checkStatus)
       .then(parseJSON)
-      .then( data => dispatch(linksLoaded(data)) )
-      .catch( error => dispatch(tempErrorMessage(`Bad response from server: ${error.message}`)) );
-    dispatch(toggleLoading(false));
+      .then( data => {
+        dispatch(linksLoaded(data));
+        dispatch(toggleLoading(false));
+      })
+      .catch( error => {
+        dispatch(tempErrorMessage(`Bad response from server: ${error.message}`));
+        dispatch(toggleLoading(false));
+      });
+
   };
 }
 

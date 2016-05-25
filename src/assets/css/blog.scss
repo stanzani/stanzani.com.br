@@ -83,7 +83,16 @@ body .blog {
 }
 
 .blog .mdl-card__supporting-text strong {
-  font-weight: 400;
+  font-weight: 600;
+  color: #363636;
+}
+.blog .mdl-card__supporting-text img {
+  max-width: 440px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .blog .mdl-card__media ~ .mdl-card__supporting-text {
   min-height: 64px;
@@ -401,4 +410,8 @@ body .blog {
 .blog .blog__posts .errorPostPage p {
   font-size: 1.5em;
   padding: 2em 2em 0 2em;
+}
+
+post-loading-indicator {
+  margin: 0 auto;
 }
