@@ -63,6 +63,7 @@ if (production) {
       { from: 'src/assets/img/app_icons', to: 'assets/img/app_icons' },
       { from: 'src/favicon.ico' },
       { from: 'src/robots.txt' },
+      { from: 'src/.htaccess' }, // for apache
       { from: 'src/errors/' },
       { from: 'src/blog', to: 'blog' }
     ]),
@@ -87,6 +88,7 @@ module.exports = {
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
   output: {
     path: PATHS.pub,
+    publicPath: '/',
     filename: 'assets/js/[name].js',
     chunkFilename: 'assets/js/[name].js',
   },

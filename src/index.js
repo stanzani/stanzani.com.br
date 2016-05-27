@@ -23,14 +23,14 @@ const routes = (path, second, third) => {
     case 'blog':
       var paginate = 0;
       var post = null;
-      ga('set', 'page', '/#'+path);
+      ga('set', 'page', '/'+path);
       if(second=='post'&& third){
         path = 'post';
         post = third;
-        ga('set', 'page', '/#'+path+'/post/'+post);
+        ga('set', 'page', '/'+path+'/post/'+post);
       }else if(parseInt(second)>0){
         paginate = parseInt(second);
-        ga('set', 'page', '/#'+path+'/'+paginate);
+        ga('set', 'page', '/'+path+'/'+paginate);
       }
       require.ensure(['./tags/blog.tag'], (require) => {
         let reducer = require('./reducers/blog.js');
@@ -40,19 +40,24 @@ const routes = (path, second, third) => {
       }, 'blog');
       break;
     case '':
-    default:
       require.ensure(['./tags/home.tag'], (require) => {
         let reducer = require('./reducers/home.js');
         let reduxStore = appMiddleware(reducer);
         require('./tags/home.tag');
         page = riot.mount('app', 'home', {store:reduxStore});
       }, 'home');
-      ga('set', 'page', '/#');
+      ga('set', 'page', '/');
+      break;
+    default:
+      window.location.href = "/404";
   }
 };
 
+riot.route.base('/'); //base hash bang
 riot.route.stop(); // clear all the old router callbacks
 riot.route.start(); // start again
 riot.route(routes);
 riot.route.exec(routes);
+
+
 ga('send', 'pageview');

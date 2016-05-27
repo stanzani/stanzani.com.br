@@ -18,6 +18,9 @@ body .blog {
 .cursor-default {
   cursor: default !important;
 }
+.cursor-pointer{
+  cursor: pointer;
+}
 
 .blog .blog__posts {
   max-width: 900px;
@@ -332,6 +335,12 @@ body .blog {
   color: white;
   z-index: 9999;
 }
+
+.blog .errBack {
+  padding: 20px;
+  cursor: pointer;
+}
+
 .blog .back a{
   height: 32px !important;
   width: 32px !important;
@@ -379,6 +388,12 @@ body .blog {
   width: 32px !important;
   color: rgba(0,0,0,0.54);
   background-color: white;
+  padding-top: 0px;
+}
+
+.blog .back .mdl-button {
+  height: 32px !important;
+  width: 32px !important;
   padding-top: 0px;
 }
 

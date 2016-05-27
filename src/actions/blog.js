@@ -61,11 +61,8 @@ export function loadPosts(page,end){
 }
 
 function updateBlogURL(pg, error){
-  if (pg !== 0 && history.pushState){
-    if(error === '404') pg--;
-    var newURL = window.location.protocol + "//" + window.location.host + "/#blog/" + pg;
-    history.pushState(document.currentPage, document.title, newURL);
-  }
+  if(error === '404') pg--;
+  riot.route('/blog/'+((pg)?pg:''), 'Stanzani.com.br :: Blog')
 }
 
 function fetchPosts (d, page, end, fn){
@@ -81,7 +78,7 @@ function fetchPosts (d, page, end, fn){
     method: 'GET',
     headers: headers,
   };
-  fetch('blog/blog'+page+'.json', init)
+  fetch('/blog/blog'+page+'.json', init)
     .then(checkStatus)
     .then(parseJSON)
     .then( data => {
@@ -97,7 +94,7 @@ function fetchPosts (d, page, end, fn){
 export function loadProfile(){
   return (dispatch, getState) => {
     dispatch(toggleProfileLoading(true));
-    fetch('blog/danielstanzani.json')
+    fetch('/blog/danielstanzani.json')
       .then(checkStatus)
       .then(parseJSON)
       .then( data => {
@@ -114,7 +111,7 @@ export function loadProfile(){
 export function loadPost(id){
   return (dispatch, getState) => {
     dispatch(toggleLoading(true));
-    fetch(`blog/posts/${id}.json`)
+    fetch(`/blog/posts/${id}.json`)
       .then(checkStatus)
       .then(parseJSON)
       .then( data => {

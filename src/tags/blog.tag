@@ -20,9 +20,9 @@ import * as showdown from 'showdown';
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,500' rel='stylesheet' type='text/css'>
   <div class="blog mdl-layout mdl-js-layout has-drawer is-upgraded">
     <div class="back">
-     <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" title="voltar" role="button">
+     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onClick={home} title="voltar" role="button">
        <i class="zmdi zmdi-arrow-left" role="presentation"></i>
-     </a>
+     </button>
    </div>
     <main class="mdl-layout__content">
       <posts-list profile={this.state.profile}
@@ -57,15 +57,19 @@ import * as showdown from 'showdown';
     let hideErrorMessage = () => {
       store.dispatch(actions.hideError())
     }
+
+    this.home = (e) => riot.route('', 'Stanzani.com.br')
   </script>
 </blog>
 
 <posts-list>
   <profile data={this.opts.profile} loading="{this.opts.profloading}" class="mdl-card profile mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop"></profile>
   <div class="mdl-card mdl-cell mdl-cell--8-col post__desc_first">
-    <div onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{setURL(this.opts.posts[0]['image']['url'])}')">
-      <h3><a href="{setURL(this.opts.posts[0]['url'])}">{this.opts.posts[0]['headline']}</a></h3>
-    </div>
+    <post-header
+      imgurl={setImgUrl(this.opts.posts[0]['image']['url'])}
+      headline={this.opts.posts[0]['headline']}
+      posturl={setPostUrl(this.opts.posts[0]['url'])}
+    ></post-header>
     <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
       <div class="minilogo">
         <i class="zmdi zmdi-fire zmdi-hc-2x animated infinite pulse mdl-color-text--red-600"></i>
@@ -79,9 +83,11 @@ import * as showdown from 'showdown';
   </div>
 
   <div each={ post, i in this.opts.posts } if='{i>0}' class="mdl-card mdl-cell mdl-cell--12-col post__desc">
-    <div onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{setURL(post['image']['url'])}')">
-      <h3><a href="{setURL(post['url'])}">{post['headline']}</a></h3>
-    </div>
+    <post-header
+      imgurl={setImgUrl(post['image']['url'])}
+      headline={post['headline']}
+      posturl={setPostUrl(post['url'])}
+    ></post-header>
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
       {post['description']}
     </div>
@@ -96,24 +102,26 @@ import * as showdown from 'showdown';
 
   <nav class="nav nav_more mdl-cell mdl-cell--12-col">
     <div class="section-spacer"></div>
-    <a href="#blog" class="nav__button" title="exibir mais" show={this.opts.showmore}>
+    <span onclick={ this.opts.more } class="nav__button cursor-pointer" title="exibir mais" show={this.opts.showmore}>
       Mais
-      <button onclick={ this.opts.more } class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
         <i class="zmdi zmdi-long-arrow-down"></i>
       </button>
-    </a>
+    </span>
   </nav>
   <script>
-  this.goToURL = (e) => {
-    if(e.target.firstElementChild!=null)
-      location.href = e.target.firstElementChild.firstElementChild.hash
-    else
-      location.href = e.target.hash
-  }
   this.daysBefore = (date) => actions.daysBefore(date)
-  this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
+  this.setImgUrl = (url) => url.substring(url.split('/', 3).join('/').length)
+  this.setPostUrl = (url) => url.split('#',2)[1]
   </script>
 </posts-list>
+
+<post-header onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{this.opts.imgurl}')">
+    <h3>{this.opts.headline}</h3>
+    <script>
+      this.goToURL = (e) => riot.route(this.opts.posturl, 'Stanzani :: Blog :: ' + this.opts.headline)
+    </script>
+</post-header>
 
 <loading-indicator>
   <span show={this.opts.loading} class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></span>
@@ -146,7 +154,7 @@ import * as showdown from 'showdown';
       </div>
     </div>
     <script>
-      this.goHome = () => location.href = "/#"
+      this.goHome = (e) => riot.route('', 'Stanzani.com.br')
       this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
     </script>
 </profile>
@@ -168,9 +176,9 @@ import * as showdown from 'showdown';
   <div class="blog blog--blogpost mdl-layout mdl-js-layout has-drawer is-upgraded">
     <main class="mdl-layout__content" show={!this.state.postError}>
       <div class="back">
-       <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#blog" title="voltar" role="button">
+       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onclick={back} title="voltar" role="button">
          <i class="zmdi zmdi-arrow-left" role="presentation"></i>
-       </a>
+       </button>
      </div>
       <div class="blog__posts mdl-grid">
         <post-loading-indicator loading={this.state.isLoading}></post-loading-indicator>
@@ -282,10 +290,9 @@ import * as showdown from 'showdown';
             <h2><i class="zmdi zmdi-alert-triangle mdl-color-text--orange animated infinite flash"></i> 404 - Página não encontrada</h2>
           </div>
           <p>A página que você está tentando acessar não existe ou está indisponível.</p>
-          <a href="#blog" class="nav__button" title="voltar">
-            <span class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"></span>
+          <span onclick={back} class="errBack" title="voltar">
             <i class="zmdi zmdi-caret-left"></i> Voltar
-          </a>
+          </span>
         </div>
       </div>
     </main>
@@ -306,7 +313,7 @@ import * as showdown from 'showdown';
 
     this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
     this.setHashTag = (str) => str.split(" ").map( (v) => ` #${v}` ).join(" ")
-    //this.textLines = (str) => str.split('\n')
     this.converter = new showdown.Converter();
+    this.back = (e) => riot.route('/blog', 'Stanzani.com.br :: Blog')
   </script>
 </post>

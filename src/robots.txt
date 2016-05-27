@@ -1,2 +1,3 @@
-User-agent: *
-Disallow: /assets/*
+User-Agent: *
+Allow: /
+Sitemap: http://www.stanzani.com.br/sitemap.php

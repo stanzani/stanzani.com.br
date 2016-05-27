@@ -38,8 +38,13 @@
 </home>
 
 <link-list>
-  <span each={link in this.opts.links}>
-    <a href={link.url} title={link.name} target="{(link.hasOwnProperty('target'))?link.target:'_blank'}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-hc-3x zmdi-{link.icon} animated zoomIn"></i></a>
+  <span each={link in this.opts.links} if='{link.target=="_self"}'>
+    <btn url={link.url} title={link.name}><btn>
+  </span>
+  <span each={link in this.opts.links} if='{link.target!="_self"}'>
+    <a href={link.url} title={link.name} target="_blank" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+      <i class="zmdi zmdi-hc-3x zmdi-{link.icon} animated zoomIn"></i>
+    </a>
   </span>
   <script>
     let handleCheck = (evt) => {
@@ -47,6 +52,15 @@
     }
   </script>
 </link-list>
+
+<btn>
+  <span onclick={go} title={this.opts.title} class="mdl-button mdl-js-button mdl-js-ripple-effect">
+    <i class="zmdi zmdi-hc-3x zmdi-{link.icon} animated zoomIn"></i>
+  </span>
+  <script>
+    this.go = (e) => riot.route(this.opts.url.split('#',2)[1], 'Stanzani.com.br :: Blog')
+  </script>
+</btn>
 
 <cubieboard>
   <div>

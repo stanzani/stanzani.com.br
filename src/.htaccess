@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteRule (.*)\.json - [L,NC]
+RewriteRule ^404 404.html [L]
+
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f
+RewriteRule ^ - [L]
+RewriteRule ^ /index.html [L]
+
+ErrorDocument 400 /400.html
+ErrorDocument 401 /401.html
+ErrorDocument 403 /403.html
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
