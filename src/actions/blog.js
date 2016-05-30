@@ -44,16 +44,16 @@ export function loadPosts(page,end){
       if(page===0){
         dispatch(postsLoaded(v.posts));
         dispatch(updatePage(v.page));
-        dispatch(toggleLoading(false))
+        dispatch(toggleLoading(false));
       }else {
         dispatch(postsMoreLoaded(v.posts));
       }
       if(v.error === '404' && v.page > 0){
         dispatch(endOfPosts());
-        dispatch(toggleLoading(false))
+        dispatch(toggleLoading(false));
       }else if(v.error !== undefined ){
         dispatch(tempErrorMessage(`Bad response from server: ${v.error}`));
-        dispatch(toggleLoading(false))
+        dispatch(toggleLoading(false));
       }
       updateBlogURL(v.page, v.error);
     });
@@ -62,7 +62,7 @@ export function loadPosts(page,end){
 
 function updateBlogURL(pg, error){
   if(error === '404') pg--;
-  riot.route('/blog/'+((pg)?pg:''), 'Stanzani.com.br :: Blog')
+  riot.route('/blog/'+((pg)?pg:''), 'Stanzani.com.br :: Blog');
 }
 
 function fetchPosts (d, page, end, fn){

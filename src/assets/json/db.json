@@ -3,7 +3,7 @@
     "id": 0,
     "name": "Blog",
     "url": "#blog",
-    "icon": "home",
+    "icon": "collection-text",
     "target": "_self"
   },
   {

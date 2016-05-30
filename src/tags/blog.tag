@@ -17,7 +17,6 @@ import * as showdown from 'showdown';
 </raw>
 
 <blog>
-  <link href='https://fonts.googleapis.com/css?family=Poppins:400,500' rel='stylesheet' type='text/css'>
   <div class="blog mdl-layout mdl-js-layout has-drawer is-upgraded">
     <div class="back">
      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onClick={home} title="voltar" role="button">
@@ -42,6 +41,7 @@ import * as showdown from 'showdown';
     this.on('mount', () => {
       store.dispatch(actions.loadProfile())
       store.dispatch(actions.loadPosts(0,paginate))
+      componentHandler.upgradeAllRegistered()
     })
 
     store.subscribe( (() => {
@@ -66,9 +66,9 @@ import * as showdown from 'showdown';
   <profile data={this.opts.profile} loading="{this.opts.profloading}" class="mdl-card profile mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop"></profile>
   <div class="mdl-card mdl-cell mdl-cell--8-col post__desc_first">
     <post-header
-      imgurl={setImgUrl(this.opts.posts[0]['image']['url'])}
+      imgurl={setURL(this.opts.posts[0]['image']['url'])}
       headline={this.opts.posts[0]['headline']}
-      posturl={setPostUrl(this.opts.posts[0]['url'])}
+      posturl={setURL(this.opts.posts[0]['url'])}
     ></post-header>
     <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
       <div class="minilogo">
@@ -84,9 +84,9 @@ import * as showdown from 'showdown';
 
   <div each={ post, i in this.opts.posts } if='{i>0}' class="mdl-card mdl-cell mdl-cell--12-col post__desc">
     <post-header
-      imgurl={setImgUrl(post['image']['url'])}
+      imgurl={setURL(post['image']['url'])}
       headline={post['headline']}
-      posturl={setPostUrl(post['url'])}
+      posturl={setURL(post['url'])}
     ></post-header>
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
       {post['description']}
@@ -111,33 +111,61 @@ import * as showdown from 'showdown';
   </nav>
   <script>
   this.daysBefore = (date) => actions.daysBefore(date)
-  this.setImgUrl = (url) => url.substring(url.split('/', 3).join('/').length)
-  this.setPostUrl = (url) => url.split('#',2)[1]
+  this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
   </script>
 </posts-list>
 
 <post-header onclick={ goToURL } class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('{this.opts.imgurl}')">
     <h3>{this.opts.headline}</h3>
     <script>
-      this.goToURL = (e) => riot.route(this.opts.posturl, 'Stanzani :: Blog :: ' + this.opts.headline)
+      this.goToURL = (e) => riot.route(this.opts.posturl, 'Stanzani.com.br :: Blog :: ' + this.opts.headline)
     </script>
 </post-header>
 
 <loading-indicator>
-  <span show={this.opts.loading} class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></span>
+  <div show={this.opts.loading} class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
 </loading-indicator>
 
-<profile-loading-indicator>
-  <div show={this.opts.loading} class="mdl-spinner mdl-js-spinner is-active"></div>
-</profile-loading-indicator>
-
 <post-loading-indicator>
-  <div show={this.opts.loading} class="mdl-spinner mdl-js-spinner is-active"></div>
+  <div show={this.opts.loading} class="spinner"></div>
+  <style>
+    .spinner {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 72px solid white;
+    -webkit-transform:rotate(360deg);
+    -webkit-animation: sk-scaleout .7s infinite ease-in-out;
+            animation: sk-scaleout .7s infinite ease-in-out;
+  }
+
+  @-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sk-scaleout {
+    0% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    }
+    100% {
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+   </style>
+
 </post-loading-indicator>
 
 <profile>
     <div onclick={goHome} class="mdl-card__media mdl-color--white mdl-color-text--grey-600" style="background-image: url({setURL(this.opts.data['image'])})">
-      <profile-loading-indicator loading="{this.opts.loading}"></profile-loading-indicator>
+      <loading-indicator loading="{this.opts.loading}"></loading-indicator>
     </div>
     <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
       <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left mdl-js-ripple-effect" for="menu">
@@ -199,7 +227,8 @@ import * as showdown from 'showdown';
             </div>
             <div class="section-spacer"></div>
             <div class="meta__favorites" show={0}>
-              425 <i class="zmdi zmdi-hc-2x zmdi-favorite zmdi-hc-fw" role="presentation"></i>
+              <span>0</span>
+              <i class="zmdi zmdi-hc-2x zmdi-favorite zmdi-hc-fw" role="presentation"></i>
               <span class="visuallyhidden">favorites</span>
             </div>
             <div show={0}>
@@ -228,18 +257,60 @@ import * as showdown from 'showdown';
             </div>
           </div>
           <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments" show={0}>
-            <form>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <textarea rows=1 class="mdl-textfield__input" id="comment"></textarea>
-                <label for="comment" class="mdl-textfield__label">Fazer um comentário</label>
-              </div>
-              <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                <i class="zmdi zmdi-check" role="presentation"></i>
-              </button>
+            <h4>Deixe seu comentário</h4>
+            <form class="mdl-grid">
+                  <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="name" name="name" pattern="[A-Za-z\s]*" />
+                    <label class="mdl-textfield__label" for="name">Nome completo *</label>
+                    <span class="mdl-tooltip mdl-tooltip--validation" for="name">
+                    <span ng-show="form.name.$error.required">Campo obrigatório. <br></span>
+                    <span ng-show="form.name.$error.pattern">Apenas letras e espaços.</span>
+                    </span>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="email" id="email" name="email" ng-model="data.email" ng-required="true" />
+                    <label class="mdl-textfield__label" for="email">E-mail * (não será divulgado)</label>
+                    <span class="mdl-tooltip mdl-tooltip--validation" for="email">
+                    <span ng-show="form.email.$error.required">Campo obrigatório. Não será divulgado. <br></span>
+                    <span ng-show="form.email.$error.email">E-mail deve ser válido.</span>
+                    </span>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" onFocus={siteOnFocus} onBlur={siteonBlur} type="url" id="site" name="site" pattern="https?://.+\..+"/>
+                    <label class="mdl-textfield__label" for="site">Website</label>
+                    <span class="mdl-tooltip mdl-tooltip--validation" for="site">
+                    <span ng-show="form.site.$error.pattern">Formato http://nomedosite.com</span>
+                    </span>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="tel" id="fone" name="fone" pattern="\d\{2\}?[9]?[1-9]\d\{3\}\d\{4\}" />
+                    <label class="mdl-textfield__label" for="fone">Celular (não será divulgado)</label>
+                    <span class="mdl-tooltip mdl-tooltip--validation" for="fone">
+                    <span ng-show="form.fone.$error.pattern">Não será divulgado. <br>Apenas números.</span>
+                    </span>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea  oninput={textarea} rows="5" class="mdl-textfield__input" id="comment" name="comment" minlength="5" ng-model="data.comment" ng-required="true"></textarea>
+                    <label for="comment" class="mdl-textfield__label">Comentário *</label>
+                    <span class="mdl-tooltip mdl-tooltip--validation" for="comment">
+                    <span ng-show="form.comment.$error.required">Obrigatório.</span>
+                    <span ng-show="form.comment.$error.minlength">Mínimo 5 caracteres.</span>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col send_button mdl-cell--bottom">
+                    <span onclick={} class="nav__button cursor-pointer" title="enviar">
+                      Enviar
+                      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                        <i class="zmdi zmdi-check"></i>
+                      </button>
+                    </span>
+                    <div>Ao enviar, lerei e darei a resposta antes de publicar aqui no blog, por favor aguarde. Caso informe o número do celular, poderei comentar diretamente contigo via WhatsApp ou outro aplicativo. Obrigado.</div>
+                  </div>
             </form>
+            <div class="section-spacer"></div>
+
             <div class="comment mdl-color-text--grey-700">
               <header class="comment__header">
-                <img src="" class="comment__avatar">
+                <avatar name="Name"></avatar>
                 <div class="comment__author">
                   <strong>Name</strong>
                   <span>Date</span>
@@ -309,11 +380,45 @@ import * as showdown from 'showdown';
     store.subscribe( (() => {
         this.state = store.getState()
         this.update()
+        componentHandler.upgradeAllRegistered()
     }).bind());
 
     this.setURL = (url) => url.substring(url.split('/', 3).join('/').length)
     this.setHashTag = (str) => str.split(" ").map( (v) => ` #${v}` ).join(" ")
     this.converter = new showdown.Converter();
-    this.back = (e) => riot.route('/blog', 'Stanzani.com.br :: Blog')
+    this.back = (e) => riot.route('/blog', 'Stanzani.com.br :: Blog');
+    this.textarea = (e) => {
+      this.comment.style.height = "";
+      this.comment.style.height = Math.min(this.comment.scrollHeight) + "px";
+    }
+    this.siteOnFocus = (e) => (this.site.value == "")?this.site.value = "http://":"";
+    this.siteonBlur  = (e) => (this.site.value == "http://")?this.site.value = "":"";
+
   </script>
 </post>
+
+<avatar class="comment__avatar">
+  <canvas width="48" height="48"></canvas>
+  <script>
+
+  this.on('mount', function() {
+      var colours = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"];
+      var name = this.opts.name,
+          initials = name.match(/\b\w/g);
+          initials = (initials.shift() + initials.pop()).toUpperCase();
+      var charIndex = initials.charCodeAt(0) - 65,
+          colourIndex = charIndex % 19;
+      var canvas = this.root.querySelector('canvas');
+      var context = canvas.getContext("2d");
+      if (window.devicePixelRatio) {
+       context.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+      context.fillStyle = colours[colourIndex];
+      context.fillRect (0, 0, 48, 48);
+      context.font = "26px Verdana";
+      context.textAlign = "center";
+      context.fillStyle = "#FFF";
+      context.fillText(initials, 50 / 2.1, 50 / 1.45);
+   })
+  </script>
+</avatar>

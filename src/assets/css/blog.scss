@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,500);
+
 body::before {
     content: '';
     will-change: transform;
@@ -136,6 +138,15 @@ body .blog {
   padding-top: 0;
 }
 
+.blog .meta > .meta__favorites{
+  flex-direction: row;
+}
+.blog .meta > .meta__favorites span{
+  margin-top:5px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .blog .mdl-card .meta.meta--fill {
   justify-content: space-between;
 }
@@ -209,6 +220,12 @@ body .blog {
   content: '”';
 }
 
+.blog .mdl-card h4 {
+  margin: 0;
+  padding: 0;
+  color: #363636;
+}
+
 .blog--blogpost .custom-header {
   background-color: transparent;
 }
@@ -250,39 +267,60 @@ body .blog {
   padding: 32px;
   box-sizing: border-box;
 }
+
 .blog--blogpost .comments > form {
-  display: flex;
-  flex-direction: row;
   margin-bottom: 16px;
+  padding: 0;
 }
+
+.blog--blogpost .comments > form .mdl-cell{
+  margin: 0 16px 0 0;
+}
+
 .blog--blogpost .comments > form .mdl-textfield {
-  flex-grow: 1;
-  margin-right: 16px;
   color: rgb(97, 97, 97);
 }
+
+
 /* Workaround for Firefox.
  * User agent stylesheet kept overwriting the font in FF only.
  */
 .blog--blogpost .comments > form .mdl-textfield .mdl-textfield__input {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .blog--blogpost .comments > form .mdl-textfield input,
 .blog--blogpost .comments > form .mdl-textfield textarea {
   resize: none;
 }
-.blog--blogpost .comments > form button {
-  margin-top: 20px;
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: rgb(97, 97, 97);
+}
+.mdl-textfield__label:after {
+    background-color: rgb(97, 97, 97);
+}
+
+.blog--blogpost .comments .send_button {
+  align-items: center;
+  color: #555;
+  font-weight: 500;
+  padding-bottom:30px;
+}
+.blog--blogpost .comments .send_button div {
+  font-style: italic;
+  font-weight: 100;
+}
+
+.blog--blogpost .comments .send_button .mdl-button {
   background-color: rgba(0, 0, 0, 0.24);
   color: white;
   height: 32px !important;
   width: 32px !important;
-  padding-top: 0;
+  padding-top: 0px;
 }
-.blog--blogpost .comments .comment {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
+
 .blog--blogpost .comments .comment > .comment__header {
   display: flex;
   flex-direction: row;
@@ -292,9 +330,13 @@ body .blog {
 .blog--blogpost .comments .comment > .comment__header > .comment__avatar {
   width: 48px;
   height: 48px;
-  border-radius: 24px;
   margin-right: 16px;
 }
+
+.blog--blogpost .comments .comment > .comment__header > .comment__avatar canvas{
+  border-radius: 24px;
+}
+
 .blog--blogpost .comments .comment > .comment__header > .comment__author {
   flex-grow: 1;
   display: flex;

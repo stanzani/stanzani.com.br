@@ -42,12 +42,12 @@ export function loadCubieStatus(){
       .then(checkStatus)
       .then(parseJSON)
       .then( pong => {
-        dispatch(toggleLoadingCubie(false))
-        dispatch(cubieStatusLoaded(pong))
+        dispatch(toggleLoadingCubie(false));
+        dispatch(cubieStatusLoaded(pong));
       })
       .catch( error => {
         dispatch(cubieStatusLoaded({"pong":"Offline"}));
-        dispatch(toggleLoadingCubie(false))
+        dispatch(toggleLoadingCubie(false));
       });
   };
 }

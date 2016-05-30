@@ -88,7 +88,7 @@ module.exports = {
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
   output: {
     path: PATHS.pub,
-    publicPath: '/',
+    publicPath: production ? '/' : '',
     filename: 'assets/js/[name].js',
     chunkFilename: 'assets/js/[name].js',
   },

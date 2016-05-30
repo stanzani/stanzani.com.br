@@ -24,6 +24,7 @@
     this.on('mount', () => {
       store.dispatch(actions.loadLinks())
       store.dispatch(actions.loadCubieStatus())
+      componentHandler.upgradeAllRegistered()
     })
 
     store.subscribe( (() => {
