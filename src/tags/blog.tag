@@ -202,6 +202,7 @@ import * as showdown from 'showdown';
 
 <post>
   <div class="blog blog--blogpost mdl-layout mdl-js-layout has-drawer is-upgraded">
+    <base target="_blank">
     <main class="mdl-layout__content" show={!this.state.postError}>
       <div class="back">
        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onclick={back} title="voltar" role="button">

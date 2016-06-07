@@ -19,7 +19,7 @@ export function daysBefore (date) {
   let now = new Date();
   let d = date.split(/[: T-]/).map(parseFloat);
   let bfr = new Date(d[0], d[1]-1, d[2]);
-  let val = Math.round((now-bfr)/(1000*60*60*24)) -1;
+  let val = Math.round((now-bfr)/(1000*60*60*24));
   let recent = false;
   if(val === 0){
     val = "Hoje";

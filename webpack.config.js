@@ -88,7 +88,7 @@ module.exports = {
   resolve: { extensions: ['', '.js', '.tag', '.scss', '.css', '.html'] },
   output: {
     path: PATHS.pub,
-    publicPath: production ? '/' : '',
+    publicPath: '/',
     filename: 'assets/js/[name].js',
     chunkFilename: 'assets/js/[name].js',
   },
@@ -107,18 +107,18 @@ module.exports = {
       {
         test: /.*\.(png|gif|jpe?g|svg)$/i,
         loaders: [
-          'file?name=/assets/img/[name].[ext]',
+          'file?name=assets/img/[name].[ext]',
           'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
         ],
         include: PATHS.src
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url?limit=10000&minetype=application/font-woff&name=/assets/fonts/[name].[ext]"
+        loader: "url?limit=10000&minetype=application/font-woff&name=assets/fonts/[name].[ext]"
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file?name=/assets/fonts/[name].[ext]"
+        loader: "file?name=assets/fonts/[name].[ext]"
       },
       {
         test: /\.(scss|sass)$/,
